@@ -22,9 +22,9 @@ const Navbar = () => {
   const navLinks = [
     { to: "/", label: "Home", icon: <FaHome /> },
     { to: "/allproduct", label: "All Products", icon: <AiFillProduct /> },
-    { to: "/myproduct", label: "My Products", icon: <FaProductHunt /> },
-    { to: "/mybids", label: "My Bids", icon: <FaBitcoin /> },
-    { to: "/createproduct", label: "Create Product", icon: <IoCreate /> },
+    ...(user ? [{ to: "/myproduct", label: "My Products", icon: <FaProductHunt /> }] : []),
+     ...(user ? [{ to: "/mybids", label: "My Bids", icon: <FaBitcoin /> }] : []),
+     ...(user ? [{ to: "/createproduct", label: "Create Product", icon: <IoCreate /> }] : []),
   ];
 
   return (

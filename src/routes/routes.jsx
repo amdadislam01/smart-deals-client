@@ -8,6 +8,7 @@ import Login from "../auth/Login/Login";
 import SignUp from "../auth/SignUp/SignUp";
 import PrivetRoutes from "./PrivetRoutes";
 import MyBids from "../pages/MyBids/MyBids";
+import ProductDetails from "../pages/ProductDetails/ProductDetails";
 
 export const router = createBrowserRouter([
   {
@@ -37,7 +38,12 @@ export const router = createBrowserRouter([
         },
         {
             path: '/mybids',
-            element: <PrivetRoutes><MyBids /></PrivetRoutes>
+            element: <PrivetRoutes><MyBids /></PrivetRoutes>,
+        },
+        {
+            path: 'productDetail/:id',
+            element: <PrivetRoutes><ProductDetails /></PrivetRoutes> ,
+            loader: ({params}) => fetch(`http://localhost:3000/products/${params.id}`),
         },
     ]
   }

@@ -21,7 +21,7 @@ const MainLayout = () => {
         transition={Bounce}
       />
       <Navbar />
-      <div className="min-h-[61vh]">
+      <div className="min-h-[61vh] bg-[#f5f5f5]">
         <Outlet />
       </div>
       <Footer />
