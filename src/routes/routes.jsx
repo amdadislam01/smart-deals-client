@@ -6,6 +6,8 @@ import MyProduct from "../pages/MyProduct/MyProduct";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import Login from "../auth/Login/Login";
 import SignUp from "../auth/SignUp/SignUp";
+import PrivetRoutes from "./PrivetRoutes";
+import MyBids from "../pages/MyBids/MyBids";
 
 export const router = createBrowserRouter([
   {
@@ -30,9 +32,13 @@ export const router = createBrowserRouter([
             Component: AllProduct
         },
         {
-            path: 'myproduct',
-            Component: MyProduct
-        }
+            path: '/myproduct',
+            element: <PrivetRoutes><MyProduct /></PrivetRoutes>
+        },
+        {
+            path: '/mybids',
+            element: <PrivetRoutes><MyBids /></PrivetRoutes>
+        },
     ]
   }
 ])
