@@ -1,12 +1,14 @@
 import React, { useRef, useContext } from "react";
-import { useLoaderData } from "react-router";
+import {  Link, useLoaderData } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useState } from "react";
+// import axios from 'axios';
 
 const ProductDetails = () => {
   const products = useLoaderData();
+  
   const bidMoadlRef = useRef(null);
   const { user } = useContext(AuthContext);
   const [bids, setBids] = useState([]);
@@ -52,6 +54,9 @@ const ProductDetails = () => {
       buyer_photo: photoUrl,
       bid_price: bid,
       contact: contact,
+      product_image: image,
+      product_title: title,
+      product_price: price_max,
       status: "pending",
     };
 
@@ -77,14 +82,26 @@ const ProductDetails = () => {
       .catch(() => toast.error("Failed to place bid"));
   };
 
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3000/products/bids/${_id}`)
+  //   .then(data => {
+  //     console.log("bids for this data", data);
+  //     setBids(data.data);
+  //   })
+  // }, [_id, user]);
+
   useEffect(() => {
-    fetch(`http://localhost:3000/products/bids/${_id}`)
+    fetch(`http://localhost:3000/products/bids/${_id}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log("bids for this data", data);
         setBids(data);
       });
-  }, [_id]);
+  }, [_id, user]);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:p-10">
@@ -123,9 +140,12 @@ const ProductDetails = () => {
         </div>
 
         <div className="flex flex-col gap-4">
-          <button className="text-sm text-gray-600 hover:underline text-left mb-1">
+          <Link
+            to={"/allproduct"}
+            className="text-sm text-gray-600 hover:underline text-left mb-1"
+          >
             ← Back To Products
-          </button>
+          </Link>
 
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
             {title}
@@ -137,7 +157,7 @@ const ProductDetails = () => {
 
           <div className="bg-white p-4 rounded-lg shadow-sm">
             <h2 className="text-sky-600 font-bold text-xl">
-              ${price_max}.00 - ${price_min}.00
+              ${price_min}.00 - ${price_max}.00
             </h2>
             <p className="text-gray-500 text-sm">{location}</p>
           </div>

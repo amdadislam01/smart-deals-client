@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import HeroSection from "../../components/HeroSection/HeroSection";
 import RecenProduct from "../../components/RecenProduct/RecenProduct";
+import Loading from "../../components/Loading/Loading";
 
 const latestProductsPromise = fetch(
   "http://localhost:3000/latest-product"
@@ -9,7 +10,7 @@ const Home = () => {
   return (
     <>
       <HeroSection />
-      <Suspense fallback={<p>Loading.....</p>}>
+      <Suspense fallback={<Loading />}>
         <RecenProduct latestProductsPromise={latestProductsPromise} />
       </Suspense>
     </>

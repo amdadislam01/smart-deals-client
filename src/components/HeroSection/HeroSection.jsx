@@ -2,6 +2,7 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import bghero1 from '../../assets/bg-hero-left.png'
 import bghero2 from '../../assets/bg-hero-right.png'
+import { Link } from "react-router";
 
 const HeroSection = () => {
   return (
@@ -43,12 +44,12 @@ const HeroSection = () => {
         </div>
 
         <div className="mt-6 flex justify-center gap-4">
-          <button className="bg-[#34699A] text-white font-medium px-6 py-2 rounded-lg shadow hover:border hover:border-[#34699A] hover:bg-transparent hover:text-[#34699A] transition cursor-pointer">
+          <Link to={'/allproduct'} className="bg-[#34699A] text-white font-medium px-6 py-2 rounded-lg shadow hover:border hover:border-[#34699A] hover:bg-transparent hover:text-[#34699A] transition cursor-pointer">
             Watch All Products
-          </button>
-          <button className="border border-[#34699A] text-[#34699A] font-medium px-6 py-2 rounded-lg hover:bg-[#34699A] hover:text-white transition cursor-pointer">
+          </Link>
+          <Link to={'/create-product'} className="border border-[#34699A] text-[#34699A] font-medium px-6 py-2 rounded-lg hover:bg-[#34699A] hover:text-white transition cursor-pointer">
             Post an Product
-          </button>
+          </Link>
         </div>
       </div>
     </section>

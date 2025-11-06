@@ -41,12 +41,29 @@ const Login = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
-        toast.success("Login successful!");
-        navigate(from, { replace: true });
+        const newUsers = {
+          name: result.user.displayName,
+          email: result.user.email,
+          image: result.user.photoURL,
+        };
+
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUsers),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("data after users side", data);
+            toast.success("Login successful!");
+            navigate("/");
+          });
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Invalid email or password!");
+        toast.error("Google login failed!");
       });
   };
 

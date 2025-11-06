@@ -4,16 +4,28 @@ import Swal from "sweetalert2";
 const MyBids = () => {
   const { user } = useContext(AuthContext);
   const [bids, setBids] = useState([]);
+  // console.log('token', user.accessToken);
+
   useEffect(() => {
-    if (user?.email) {
-      fetch(`http://localhost:3000/bids?email=${user.email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setBids(data);
-        });
-    }
-  }, [user?.email]);
+    const fetchBids = async () => {
+      if (user?.email) {
+        const token = await user.getIdToken();
+        const res = await fetch(
+          `http://localhost:3000/bids?email=${user.email}`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await res.json();
+        console.log(data);
+        setBids(data);
+      }
+    };
+
+    fetchBids();
+  }, [user]);
 
   const handleRemoveBit = (_id) => {
     Swal.fire({
@@ -73,16 +85,16 @@ const MyBids = () => {
                     <td className="py-3 px-4">{index + 1}</td>
                     <td className="py-3 px-4 flex items-center gap-3">
                       <img
-                        src={bids.image || "/placeholder.png"}
-                        alt={bids.title || "bids"}
+                        src={bid.product_image || "/placeholder.png"}
+                        alt={bid.product_title}
                         className="w-10 h-10 rounded-md object-cover"
                       />
                       <div>
                         <p className="font-semibold text-gray-900 text-sm">
-                          {bids.title}
+                          {bid.product_title}
                         </p>
                         <p className="text-gray-500 text-xs">
-                          ${bids.price_max || "0.00"}
+                          ${bid.product_price || "0.00"}
                         </p>
                       </div>
                     </td>

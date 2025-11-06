@@ -25,9 +25,11 @@ const ProductCard = ({ product }) => {
           ${price_min}.00 - ${price_max}.00
         </p>
 
-        <div className="mt-4 w-full border border-sky-700 text-[#34699A] rounded-md py-2 text-sm text-center font-bold hover:bg-sky-100 transition cursor-pointer">
-          <Link to={`/productDetail/${_id}`}>View Details</Link>
-        </div>
+        <Link to={`/productDetail/${_id}`}>
+          <button className="mt-4 w-full border border-sky-700 text-[#34699A] rounded-md py-2 text-sm text-center font-bold hover:bg-sky-100 transition cursor-pointer">
+            View Details
+          </button>
+        </Link>
       </div>
     </div>
   );

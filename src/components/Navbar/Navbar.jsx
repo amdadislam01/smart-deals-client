@@ -24,7 +24,7 @@ const Navbar = () => {
     { to: "/allproduct", label: "All Products", icon: <AiFillProduct /> },
     ...(user ? [{ to: "/myproduct", label: "My Products", icon: <FaProductHunt /> }] : []),
      ...(user ? [{ to: "/mybids", label: "My Bids", icon: <FaBitcoin /> }] : []),
-     ...(user ? [{ to: "/createproduct", label: "Create Product", icon: <IoCreate /> }] : []),
+     ...(user ? [{ to: "/create-product", label: "Create Product", icon: <IoCreate /> }] : []),
   ];
 
   return (
@@ -82,9 +82,9 @@ const Navbar = () => {
             </>
           ) : (
             <div className="flex items-center gap-3">
-              <Link to={"/myprofile"} className="relative group cursor-pointer">
+              <div className="relative group cursor-pointer">
                 <img
-                  src={user.photoURL || user.reloadUserInfo.photoURL}
+                  src={user?.photoURL || user.reloadUserInfo.photoURL}
                   alt="Profile"
                   className="w-10 h-10 rounded-full border-2 border-[#58A0C8]"
                 />
@@ -94,7 +94,7 @@ const Navbar = () => {
                   </p>
                   <p className="text-xs text-gray-500">{user.email}</p>
                 </div>
-              </Link>
+              </div>
               <button
                 onClick={logoutUser}
                 className="flex items-center gap-2 px-4 py-2 rounded-md font-medium text-white bg-gradient-to-r from-[#34699A] to-[#58A0C8] hover:opacity-90 transition cursor-pointer"
