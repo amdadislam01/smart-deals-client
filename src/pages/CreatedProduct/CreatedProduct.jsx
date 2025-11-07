@@ -28,7 +28,7 @@ const CreatedProduct = () => {
       created_at: e.target.createdAt.value,
       status: "pending",
     };
-    axios.post("http://localhost:3000/products", formData).then((data) => {
+    axios.post("https://smart-deals-server-five.vercel.app/products", formData).then((data) => {
       console.log(data.data);
       if (data.data.insertedId) {
         Swal.fire({

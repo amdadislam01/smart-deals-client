@@ -11,7 +11,7 @@ const MyBids = () => {
       if (user?.email) {
         const token = await user.getIdToken();
         const res = await fetch(
-          `http://localhost:3000/bids?email=${user.email}`,
+          `https://smart-deals-server-five.vercel.app/bids?email=${user.email}`,
           {
             headers: {
               authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ const MyBids = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/bids/${_id}`, {
+        fetch(`https://smart-deals-server-five.vercel.app/bids/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

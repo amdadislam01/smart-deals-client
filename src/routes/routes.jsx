@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
       {
         path: "/allproduct",
         Component: AllProduct,
-        loader: () => fetch("http://localhost:3000/products"),
+        loader: () => fetch("https://smart-deals-server-five.vercel.app/products"),
       },
       {
         path: "/myproduct",
@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
           </PrivetRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/products/${params.id}`),
+          fetch(`https://smart-deals-server-five.vercel.app/products/${params.id}`),
       },
       {
         path: "productDetail/:id",
@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
           </PrivetRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/products/${params.id}`),
+          fetch(`https://smart-deals-server-five.vercel.app/products/${params.id}`),
       },
       {
         path: "/create-product",
