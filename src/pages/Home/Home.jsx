@@ -7,6 +7,7 @@ const latestProductsPromise = fetch(
   "https://smart-deals-server-five.vercel.app/latest-product"
 ).then((res) => res.json());
 const Home = () => {
+  
   return (
     <>
       <HeroSection />
