@@ -1,5 +1,5 @@
 import React, { useRef, useContext } from "react";
-import {  Link, useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const ProductDetails = () => {
   const products = useLoaderData();
-  
+
   const bidMoadlRef = useRef(null);
   const { user } = useContext(AuthContext);
   const [bids, setBids] = useState([]);
@@ -308,53 +308,68 @@ const ProductDetails = () => {
       </dialog>
 
       {/* Bids Table */}
-      <div className="max-w-[1510px] mx-auto mt-10 bg-white p-6 rounded-lg shadow-sm">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">
-          Bids For This Product:{" "}
-          <span className="text-[#34699A] font-bold">{bids.length}</span>
+      <div className="max-w-[1510px] mx-auto mt-10 bg-white p-6 rounded-lg shadow-md pb-8">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-5 flex items-center justify-between">
+          <span>
+            Bids For This Product:{" "}
+            <span className="text-[#34699A] font-bold">{bids.length}</span>
+          </span>
         </h2>
 
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
-            <thead>
-              <tr className="bg-gray-100 text-gray-700">
-                <th className="py-3 px-4 text-left font-semibold">SL No</th>
-                <th className="py-3 px-4 text-left font-semibold">Product</th>
-                <th className="py-3 px-4 text-left font-semibold">Seller</th>
-                <th className="py-3 px-4 text-left font-semibold">Bid Price</th>
-                <th className="py-3 px-4 text-left font-semibold">Actions</th>
+        <div className="overflow-x-auto rounded-md border border-gray-200">
+          <table className="min-w-full text-sm text-gray-700">
+            <thead className="bg-gray-100 border-b border-gray-200">
+              <tr>
+                <th className="py-3 px-5 text-left font-semibold w-[70px]">
+                  SL No
+                </th>
+                <th className="py-3 px-5 text-left font-semibold w-[300px]">
+                  Product
+                </th>
+                <th className="py-3 px-5 text-left font-semibold w-[280px]">
+                  Seller
+                </th>
+                <th className="py-3 px-5 text-left font-semibold w-[150px]">
+                  Bid Price
+                </th>
+                <th className="py-3 px-5 text-center font-semibold w-[160px]">
+                  Actions
+                </th>
               </tr>
             </thead>
+
             <tbody>
               {bids.length > 0 ? (
                 bids.map((bid, index) => (
                   <tr
                     key={bid._id || index}
-                    className="border-b border-gray-300 last:border-0 hover:bg-gray-50 transition"
+                    className="border-b border-gray-300 hover:bg-gray-50 transition"
                   >
-                    <td className="py-3 px-4">{index + 1}</td>
-                    <td className="py-3 px-4 flex items-center gap-3">
-                      <img
-                        src={products.image || "/placeholder.png"}
-                        alt={products.title || "Product"}
-                        className="w-10 h-10 rounded-md object-cover"
-                      />
-                      <div>
-                        <p className="font-semibold text-gray-900 text-sm">
-                          {products.title}
-                        </p>
-                        <p className="text-gray-500 text-xs">
-                          ${products.price_max || "0.00"}
-                        </p>
+                    <td className="py-4 px-5">{index + 1}</td>
+                    <td className="py-4 px-5">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={products.image || "/placeholder.png"}
+                          alt={products.title || "Product"}
+                          className="w-12 h-12 rounded-md object-cover border"
+                        />
+                        <div>
+                          <p className="font-semibold text-gray-900 text-sm">
+                            {products.title}
+                          </p>
+                          <p className="text-gray-500 text-xs">
+                            ${products.price_max || "0.00"}
+                          </p>
+                        </div>
                       </div>
                     </td>
 
-                    <td className="py-3 px-4">
+                    <td className="py-4 px-5">
                       <div className="flex items-center gap-3">
                         <img
                           src={bid.buyer_photo || "/placeholder.png"}
-                          alt={bid.buyer_name || "SallarImage"}
-                          className="w-8 h-8 rounded-full object-cover"
+                          alt={bid.buyer_name || "Seller"}
+                          className="w-10 h-10 rounded-full object-cover border"
                         />
                         <div>
                           <p className="font-semibold text-gray-900 text-sm">
@@ -367,17 +382,19 @@ const ProductDetails = () => {
                       </div>
                     </td>
 
-                    <td className="py-3 px-4 font-semibold text-gray-800">
+                    <td className="py-4 px-5 font-semibold text-gray-800">
                       ${bid.bid_price}.00
                     </td>
 
-                    <td className="py-3 px-4 flex gap-2">
-                      <button className="text-green-600 border border-green-600 rounded-md px-3 py-1 text-xs font-medium hover:bg-green-50 transition">
-                        Accept Offer
-                      </button>
-                      <button className="text-red-500 border border-red-500 rounded-md px-3 py-1 text-xs font-medium hover:bg-red-50 transition">
-                        Reject Offer
-                      </button>
+                    <td className="py-4 px-5 text-center">
+                      <div className="flex justify-center gap-2">
+                        <button className="text-green-600 border border-green-600 rounded-md px-3 py-1 text-xs font-medium hover:bg-green-50 transition">
+                          Accept
+                        </button>
+                        <button className="text-red-500 border border-red-500 rounded-md px-3 py-1 text-xs font-medium hover:bg-red-50 transition">
+                          Reject
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -385,7 +402,7 @@ const ProductDetails = () => {
                 <tr>
                   <td
                     colSpan="5"
-                    className="py-5 text-center text-gray-500 italic"
+                    className="py-6 text-center text-gray-500 italic"
                   >
                     No bids found for this product.
                   </td>
