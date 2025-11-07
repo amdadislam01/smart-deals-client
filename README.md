@@ -7,7 +7,7 @@ Built with **React**, **Tailwind CSS**, **Express**, **Firebase**, and **MongoDB
 
 ## 🔗 Live Links
 
-🌐 **Client:** [Smart Deals Client](https://smart-deals-01.netlify.app/)  
+🌐 **Client:** [Smart Deals Client](https://smart-deals-client.vercel.app/)  
 ⚙️ **Server:** [Smart Deals Server](https://smart-deals-server-five.vercel.app/)
 
 ---
