@@ -12,6 +12,13 @@ Built with **React**, **Tailwind CSS**, **Express**, **Firebase**, and **MongoDB
 
 ---
 
+## 🔗 GitHub Links
+
+🌐 **Client Code :** [Smart Deals Client](https://github.com/amdadislam01/smart-deals-client.git)  
+⚙️ **Server Code :** [Smart Deals Server](https://github.com/amdadislam01/smart-deals-server)
+
+---
+
 ## 📸 Preview
 
 <img src="https://i.ibb.co.com/dsBsCrwR/screencapture-localhost-5173-2025-11-07-12-08-18.png"  alt="image" />
