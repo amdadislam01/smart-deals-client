@@ -6,6 +6,7 @@
 
 * {
   font-family: "Open Sans", sans-serif;
+  scrollbar-width: none;
 }
 
 @keyframes spin-slow {
