@@ -64,10 +64,10 @@ const MyProduct = () => {
         <span className="text-[#34699A] font-bold">{prodcut.length}</span>
       </h2>
 
-      <div className="max-w-[1510px] mx-auto bg-white p-6 rounded-lg shadow-md">
+      <div className="max-w-[1510px] mx-auto bg-white p-4 sm:p-6 rounded-lg shadow-md">
         <div className="overflow-x-auto rounded-md border border-gray-200">
           <table className="min-w-full text-sm text-gray-700">
-            <thead className="bg-gray-100 border-b border-gray-200">
+            <thead className="bg-gray-100 border-b border-gray-200 hidden md:table-header-group">
               <tr>
                 <th className="py-3 px-5 text-left font-semibold">SL No</th>
                 <th className="py-3 px-5 text-left font-semibold">Product</th>
@@ -83,10 +83,14 @@ const MyProduct = () => {
                 prodcut.map((pro, index) => (
                   <tr
                     key={pro._id || index}
-                    className="border-b border-gray-300 hover:bg-gray-50 transition align-middle"
+                    className="border-b border-gray-300 hover:bg-gray-50 transition align-middle block md:table-row"
                   >
-                    <td className="py-4 px-5 align-middle">{index + 1}</td>
-                    <td className="py-4 px-5 align-middle">
+                    <td className="py-3 px-5 align-middle block md:table-cell text-sm">
+                      <span className="font-semibold md:hidden">SL No: </span>
+                      {index + 1}
+                    </td>
+
+                    <td className="py-3 px-5 align-middle block md:table-cell">
                       <div className="flex items-center gap-3">
                         <img
                           src={pro.image || "/placeholder.png"}
@@ -103,13 +107,20 @@ const MyProduct = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="py-4 px-5 align-middle font-semibold text-gray-800">
+
+                    <td className="py-3 px-5 align-middle block md:table-cell font-semibold text-gray-800">
+                      <span className="font-semibold md:hidden">
+                        Category:{" "}
+                      </span>
                       {pro.category}
                     </td>
-                    <td className="py-4 px-5 align-middle font-semibold text-gray-800">
-                      ${pro.price_max}.00
+
+                    <td className="py-3 px-5 align-middle block md:table-cell font-semibold text-gray-800">
+                      <span className="font-semibold md:hidden">Price: </span>$
+                      {pro.price_max}.00
                     </td>
-                    <td className="py-4 px-5 align-middle font-semibold text-gray-800">
+
+                    <td className="py-3 px-5 align-middle block md:table-cell font-semibold text-gray-800">
                       {pro.status === "pending" ? (
                         <span className="bg-amber-300 text-gray-800 px-3 py-1.5 rounded-full text-xs font-medium capitalize">
                           {pro.status}
@@ -121,8 +132,8 @@ const MyProduct = () => {
                       )}
                     </td>
 
-                    <td className="py-4 px-5 align-middle text-center">
-                      <div className="flex justify-center items-center">
+                    <td className="py-3 px-5 align-middle block md:table-cell text-center">
+                      <div className="flex justify-center md:justify-center items-center mt-2 md:mt-0">
                         <button
                           onClick={() => handleRemoveBit(pro._id)}
                           className="text-red-500 border border-red-500 rounded-md px-3 py-1 text-xs font-medium hover:bg-red-50 transition cursor-pointer"
@@ -137,7 +148,7 @@ const MyProduct = () => {
                 <tr>
                   <td
                     colSpan="6"
-                    className="py-6 text-center text-gray-500 italic"
+                    className="py-6 text-center text-gray-500 italic block md:table-cell"
                   >
                     No products found.
                   </td>

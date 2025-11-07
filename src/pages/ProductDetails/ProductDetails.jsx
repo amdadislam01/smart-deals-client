@@ -308,7 +308,7 @@ const ProductDetails = () => {
       </dialog>
 
       {/* Bids Table */}
-      <div className="max-w-[1510px] mx-auto mt-10 bg-white p-6 rounded-lg shadow-md pb-8">
+      <div className="max-w-[1510px] mx-auto mt-10 bg-white p-4 sm:p-6 rounded-lg shadow-md pb-8">
         <h2 className="text-2xl font-semibold text-gray-900 mb-5 flex items-center justify-between">
           <span>
             Bids For This Product:{" "}
@@ -318,7 +318,7 @@ const ProductDetails = () => {
 
         <div className="overflow-x-auto rounded-md border border-gray-200">
           <table className="min-w-full text-sm text-gray-700">
-            <thead className="bg-gray-100 border-b border-gray-200">
+            <thead className="bg-gray-100 border-b border-gray-200 hidden md:table-header-group">
               <tr>
                 <th className="py-3 px-5 text-left font-semibold w-[70px]">
                   SL No
@@ -343,10 +343,14 @@ const ProductDetails = () => {
                 bids.map((bid, index) => (
                   <tr
                     key={bid._id || index}
-                    className="border-b border-gray-300 hover:bg-gray-50 transition"
+                    className="border-b border-gray-300 hover:bg-gray-50 transition block md:table-row"
                   >
-                    <td className="py-4 px-5">{index + 1}</td>
-                    <td className="py-4 px-5">
+                    <td className="py-3 px-5 block md:table-cell">
+                      <span className="font-semibold md:hidden">SL No: </span>
+                      {index + 1}
+                    </td>
+
+                    <td className="py-3 px-5 block md:table-cell">
                       <div className="flex items-center gap-3">
                         <img
                           src={products.image || "/placeholder.png"}
@@ -364,7 +368,7 @@ const ProductDetails = () => {
                       </div>
                     </td>
 
-                    <td className="py-4 px-5">
+                    <td className="py-3 px-5 block md:table-cell">
                       <div className="flex items-center gap-3">
                         <img
                           src={bid.buyer_photo || "/placeholder.png"}
@@ -382,12 +386,15 @@ const ProductDetails = () => {
                       </div>
                     </td>
 
-                    <td className="py-4 px-5 font-semibold text-gray-800">
+                    <td className="py-3 px-5 font-semibold text-gray-800 block md:table-cell">
+                      <span className="font-semibold md:hidden">
+                        Bid Price:{" "}
+                      </span>
                       ${bid.bid_price}.00
                     </td>
 
-                    <td className="py-4 px-5 text-center">
-                      <div className="flex justify-center gap-2">
+                    <td className="py-3 px-5 text-center block md:table-cell">
+                      <div className="flex justify-center md:justify-center gap-2 mt-2 md:mt-0">
                         <button className="text-green-600 border border-green-600 rounded-md px-3 py-1 text-xs font-medium hover:bg-green-50 transition">
                           Accept
                         </button>
@@ -402,7 +409,7 @@ const ProductDetails = () => {
                 <tr>
                   <td
                     colSpan="5"
-                    className="py-6 text-center text-gray-500 italic"
+                    className="py-6 text-center text-gray-500 italic block md:table-cell"
                   >
                     No bids found for this product.
                   </td>
