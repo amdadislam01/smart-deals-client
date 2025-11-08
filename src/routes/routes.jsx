@@ -32,7 +32,6 @@ export const router = createBrowserRouter([
       {
         path: "/allproduct",
         Component: AllProduct,
-        loader: () => fetch("https://smart-deals-server-five.vercel.app/products"),
       },
       {
         path: "/myproduct",

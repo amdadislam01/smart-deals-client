@@ -1,34 +1,49 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Swal from "sweetalert2";
+import Loading from "../../components/Loading/Loading";
 
 const MyProduct = () => {
-  const { user } = useContext(AuthContext);
-  const [prodcut, setProduct] = useState([]);
-  // console.log('token', user.accessToken);
+  const { user, loading: authLoading } = useContext(AuthContext);
+  const [product, setProduct] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBids = async () => {
+    const fetchProducts = async () => {
       if (user?.email) {
-        const token = await user.getIdToken();
-        const res = await fetch(
-          `https://smart-deals-server-five.vercel.app/products?email=${user.email}`,
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const data = await res.json();
-        console.log(data);
-        setProduct(data);
+        try {
+          setLoading(true);
+          const token = await user.getIdToken();
+          const res = await fetch(
+            `https://smart-deals-server-five.vercel.app/products?email=${user.email}`,
+            {
+              headers: {
+                authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const data = await res.json();
+          setProduct(data);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
       }
     };
 
-    fetchBids();
-  }, [user]);
+    if (!authLoading) {
+      fetchProducts();
+    }
+  }, [user, authLoading]);
 
-  const handleRemoveBit = (_id) => {
+  if (loading) {
+    return <Loading />;
+  }
+
+  const handleRemoveProduct = (_id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -47,21 +62,24 @@ const MyProduct = () => {
             if (data.deletedCount) {
               Swal.fire({
                 title: "Deleted!",
-                text: "Your Bids has been deleted.",
+                text: "Your product has been deleted.",
                 icon: "success",
               });
-              const remainingBids = prodcut.filter((bid) => bid._id !== _id);
-              setProduct(remainingBids);
+              const remainingProducts = product.filter(
+                (item) => item._id !== _id
+              );
+              setProduct(remainingProducts);
             }
           });
       }
     });
   };
+
   return (
     <div className="w-full pb-16">
       <h2 className="text-3xl text-center font-bold text-gray-900 py-12">
         My Products:{" "}
-        <span className="text-[#34699A] font-bold">{prodcut.length}</span>
+        <span className="text-[#34699A] font-bold">{product.length}</span>
       </h2>
 
       <div className="max-w-[1510px] mx-auto bg-white p-4 sm:p-6 rounded-lg shadow-md">
@@ -79,8 +97,8 @@ const MyProduct = () => {
             </thead>
 
             <tbody>
-              {prodcut.length > 0 ? (
-                prodcut.map((pro, index) => (
+              {product.length > 0 ? (
+                product.map((pro, index) => (
                   <tr
                     key={pro._id || index}
                     className="border-b border-gray-300 hover:bg-gray-50 transition align-middle block md:table-row"
@@ -133,9 +151,9 @@ const MyProduct = () => {
                     </td>
 
                     <td className="py-3 px-5 align-middle block md:table-cell text-center">
-                      <div className="flex justify-center md:justify-center items-center mt-2 md:mt-0">
+                      <div className="flex justify-center items-center mt-2 md:mt-0">
                         <button
-                          onClick={() => handleRemoveBit(pro._id)}
+                          onClick={() => handleRemoveProduct(pro._id)}
                           className="text-red-500 border border-red-500 rounded-md px-3 py-1 text-xs font-medium hover:bg-red-50 transition cursor-pointer"
                         >
                           Remove

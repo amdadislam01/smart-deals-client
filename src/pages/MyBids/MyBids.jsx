@@ -1,31 +1,47 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Swal from "sweetalert2";
+import Loading from "../../components/Loading/Loading";
+
 const MyBids = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading: authLoading } = useContext(AuthContext);
   const [bids, setBids] = useState([]);
-  // console.log('token', user.accessToken);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBids = async () => {
       if (user?.email) {
-        const token = await user.getIdToken();
-        const res = await fetch(
-          `https://smart-deals-server-five.vercel.app/bids?email=${user.email}`,
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const data = await res.json();
-        console.log(data);
-        setBids(data);
+        try {
+          setLoading(true);
+          const token = await user.getIdToken();
+          const res = await fetch(
+            `https://smart-deals-server-five.vercel.app/bids?email=${user.email}`,
+            {
+              headers: {
+                authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const data = await res.json();
+          setBids(data);
+        } catch (error) {
+          console.error("Error fetching bids:", error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
       }
     };
 
-    fetchBids();
-  }, [user]);
+    if (!authLoading) {
+      fetchBids();
+    }
+  }, [user, authLoading]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const handleRemoveBit = (_id) => {
     Swal.fire({
@@ -46,7 +62,7 @@ const MyBids = () => {
             if (data.deletedCount) {
               Swal.fire({
                 title: "Deleted!",
-                text: "Your Bids has been deleted.",
+                text: "Your Bid has been deleted.",
                 icon: "success",
               });
               const remainingBids = bids.filter((bid) => bid._id !== _id);
@@ -56,6 +72,7 @@ const MyBids = () => {
       }
     });
   };
+
   return (
     <div className="w-full pb-16">
       <h2 className="text-3xl text-center font-bold text-gray-900 py-12">

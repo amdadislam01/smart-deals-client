@@ -124,6 +124,7 @@ const Footer = () => {
       <div className="text-center text-sm text-gray-400 mt-6">
         © 2025 <span className="text-white font-semibold">SmartDeals</span>. All
         rights reserved.
+        <p className="text-sm font-semibold">Developed By <a href="https://amdadislam-01.netlify.app/">MD Amdad Islam</a></p>
       </div>
     </footer>
   );
