@@ -1,5 +1,6 @@
 # 🛍️ Smart Deals - E-commerce Platform
 
+
 A modern **Buy & Sell Marketplace** where users can easily list, browse, and manage second-hand products.  
 Built with **React**, **Tailwind CSS**, **Express**, **Firebase**, and **MongoDB**, this project offers a smooth, secure, and responsive experience — both for buyers and sellers.
 
